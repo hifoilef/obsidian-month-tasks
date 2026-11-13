@@ -1,5 +1,53 @@
 # Month Tasks
 
+## English
+
+Month Tasks displays Markdown checkbox tasks in a monthly calendar inside Obsidian. It works independently and does not require the Kanban or Tasks plugins. Version 0.1 has been verified on the desktop app and is marked as desktop-only.
+
+### Features
+
+- Shows single-day tasks and multi-day task bars in a monthly calendar.
+- Collects unfinished tasks without dates in a collapsible pending-tasks panel, grouped by source note.
+- Supports custom task colors and an independent, user-defined color marker.
+- Creates tasks from the calendar and safely toggles `[ ]` and `[x]` after checking the original line.
+- Provides configurable upcoming and overdue summaries and calendar zoom from 60% to 130%.
+- Reads existing Kanban notes without depending on Kanban columns or modifying the board.
+
+### Installation
+
+To install with BRAT, add this repository:
+
+```text
+https://github.com/hifoilef/obsidian-month-tasks
+```
+
+For a manual installation, download `main.js`, `manifest.json`, and `styles.css` from the latest GitHub release. Put them in `<vault>/.obsidian/plugins/month-tasks/`, reload Obsidian, and enable **Month Tasks** under Community plugins.
+
+### Supported task syntax
+
+Month Tasks recognizes unordered Markdown checkbox tasks with optional scheduled and due dates:
+
+```markdown
+- [ ] Single-day task 📅 2026-10-20
+- [ ] Multi-day task ⏳ 2026-10-20 📅 2026-10-25
+- [x] Completed task 📅 2026-10-18
+```
+
+`📅 YYYY-MM-DD` is the due date and `⏳ YYYY-MM-DD` is the start date. Dates written as ordinary title text are not parsed. Custom task states such as `[/]` and `[-]`, block quotes, and ordered-list tasks are not supported.
+
+### Data and privacy
+
+The plugin does not make network requests or collect data. It only modifies notes when appending a newly created task or toggling a checkbox between `[ ]` and `[x]`; the original line is validated before every checkbox write. Task colors, marker colors, panel state, and settings are stored locally in the plugin's `data.json` file. Sync the plugin directory as well as your notes if you want those settings on another device.
+
+### Known limitations
+
+- Renaming a task can remove its saved task color and marker color.
+- Reordering duplicate task titles in the same note can associate a saved color with a different duplicate.
+- Moving an individual task to another note does not preserve its colors; renaming or moving the entire note does.
+- Version 0.1 is currently verified on desktop only.
+
+## 中文
+
 Month Tasks 是一个面向 Markdown 复选框任务的 Obsidian 月历插件。它可以独立运行，
 不要求安装 Kanban 或 Tasks 插件。v0.1 当前仅在桌面端完成验证，并标记为仅桌面端。
 
