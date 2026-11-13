@@ -24,7 +24,9 @@ export class MonthTasksSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl('h3', { text: '扫描与默认笔记' });
+    new Setting(containerEl)
+      .setName('扫描与默认笔记')
+      .setHeading();
     containerEl.createEl('p', {
       cls: 'setting-item-description',
       text: '选择读取任务的范围，以及从月历新建任务时默认写入的普通 Markdown 笔记。',
@@ -72,7 +74,9 @@ export class MonthTasksSettingTab extends PluginSettingTab {
     };
     void updateDefaultNoteWarning();
 
-    containerEl.createEl('h3', { text: '显示' });
+    new Setting(containerEl)
+      .setName('显示')
+      .setHeading();
     containerEl.createEl('p', {
       cls: 'setting-item-description',
       text: '调整月历内容的显示密度；月历顶栏中的滑块会同步这一数值。',
@@ -93,7 +97,9 @@ export class MonthTasksSettingTab extends PluginSettingTab {
           }),
       );
 
-    containerEl.createEl('h3', { text: '颜色与标记' });
+    new Setting(containerEl)
+      .setName('颜色与标记')
+      .setHeading();
     containerEl.createEl('p', {
       cls: 'setting-item-description',
       text: '卡片颜色和圆点标记是两套独立数据，都只保存在插件数据中，不写进笔记正文。',
@@ -123,7 +129,9 @@ export class MonthTasksSettingTab extends PluginSettingTab {
           }),
       );
 
-    containerEl.createEl('h3', { text: '汇总' });
+    new Setting(containerEl)
+      .setName('汇总')
+      .setHeading();
     containerEl.createEl('p', {
       cls: 'setting-item-description',
       text: '这些选项只调整顶栏任务汇总及其弹窗，不会从月历日期格中隐藏任务。',

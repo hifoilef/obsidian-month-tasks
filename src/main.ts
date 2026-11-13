@@ -69,10 +69,6 @@ export default class MonthTasksPlugin extends Plugin {
     return this.taskScanner.scan(this.app, this.settings);
   }
 
-  override onunload(): void {
-    this.app.workspace.detachLeavesOfType(VIEW_TYPE_MONTH_TASKS);
-  }
-
   /** Opens the calendar or focuses the existing calendar leaf. */
   async openCalendar(): Promise<void> {
     const existingLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE_MONTH_TASKS)[0];
