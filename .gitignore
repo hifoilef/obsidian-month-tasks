@@ -1,0 +1,6 @@
+node_modules/
+main.js
+deploy.config.json
+scripts/.generated-performance-vault/
+*.log
+.DS_Store

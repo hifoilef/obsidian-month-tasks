@@ -1,0 +1,23 @@
+{
+  "name": "month-tasks",
+  "version": "0.1.0",
+  "description": "Calendar-oriented task parsing for Obsidian.",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "deploy": "npm run build && node scripts/deploy.mjs",
+    "test": "vitest run --configLoader runner"
+  },
+  "keywords": [],
+  "author": "Nifern",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "esbuild": "0.25.5",
+    "obsidian": "latest",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
