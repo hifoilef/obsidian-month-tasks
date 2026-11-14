@@ -323,8 +323,7 @@ export class MonthTasksView extends ItemView {
         if (day === undefined) continue;
         const dayCell = weekRow.createDiv({ cls: 'mt-day-cell' });
         dayCell.setCssProps({
-          'grid-column': String(dayIndex + 2),
-          'grid-row': '1',
+          '--mt-grid-column': String(dayIndex + 2),
         });
         if (!day.isCurrentMonth) dayCell.addClass('mt-day-outside');
         const addTaskButton = dayCell.createEl('button', {
@@ -360,7 +359,7 @@ export class MonthTasksView extends ItemView {
         const taskList = dayCell.createDiv({ cls: 'mt-day-task-list' });
         for (const placement of dayLayout.visibleSingleTasks) {
           const taskButton = this.renderTask(taskList, placement.task);
-          taskButton.setCssProps({ 'grid-row': String(placement.row + 1) });
+          taskButton.setCssProps({ '--mt-grid-row': String(placement.row + 1) });
         }
 
         if (dayLayout.hiddenCount > 0) {
@@ -368,7 +367,7 @@ export class MonthTasksView extends ItemView {
             cls: 'mt-more-button',
             text: `还有 ${dayLayout.hiddenCount} 个`,
           });
-          moreButton.setCssProps({ 'grid-row': String(MAX_VISIBLE_TASKS + 1) });
+          moreButton.setCssProps({ '--mt-grid-row': String(MAX_VISIBLE_TASKS + 1) });
           moreButton.addEventListener('click', () => {
             new DayTasksModal(
               this.app,
@@ -529,8 +528,9 @@ export class MonthTasksView extends ItemView {
         getTaskColor(segment.task, this.plugin.settings),
       );
       button.setCssProps({
-        'grid-column': `${segment.startCol + 1} / ${segment.endCol + 2}`,
-        'grid-row': String(segment.lane + 1),
+        '--mt-grid-column-start': String(segment.startCol + 1),
+        '--mt-grid-column-end': String(segment.endCol + 2),
+        '--mt-grid-row': String(segment.lane + 1),
       });
       if (segment.continuesLeft) {
         button.createSpan({ cls: 'mt-week-bar-arrow', text: '‹' });

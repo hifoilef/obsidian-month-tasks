@@ -336,6 +336,8 @@
 
 .mt-day-cell {
   position: relative;
+  grid-column: var(--mt-grid-column);
+  grid-row: 1;
   min-width: 0;
   min-height: var(--mt-cell-min-height);
   padding: var(--mt-cell-padding);
@@ -399,6 +401,11 @@ button.mt-day-add-button:hover {
   grid-template-rows: repeat(3, var(--mt-content-row-height));
   gap: 0;
   margin-inline: calc(var(--mt-cell-padding) * -1);
+}
+
+.mt-day-task-list > .mt-task,
+.mt-day-task-list > .mt-more-button {
+  grid-row: var(--mt-grid-row);
 }
 
 .mt-modal-task-list {
@@ -514,6 +521,8 @@ button.mt-day-add-button:hover {
   align-items: center;
   justify-content: flex-start;
   gap: 2px;
+  grid-column: var(--mt-grid-column-start) / var(--mt-grid-column-end);
+  grid-row: var(--mt-grid-row);
   min-width: 0;
   height: var(--mt-content-row-height);
   margin: 1px;
