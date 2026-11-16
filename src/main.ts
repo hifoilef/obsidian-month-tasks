@@ -42,26 +42,6 @@ export default class MonthTasksPlugin extends Plugin {
       callback: async () => this.openCalendar(),
     });
 
-    this.addCommand({
-      id: 'print-parsed-tasks',
-      name: '打印解析结果',
-      callback: async () => {
-        try {
-          const startedAt = performance.now();
-          const scan = await this.scanTasks();
-          const elapsedMs = performance.now() - startedAt;
-          console.log('Month Tasks parsed tasks:', scan.tasks);
-          console.log(
-            `Month Tasks scan: ${scan.successfulFilePaths.length} files, `
-            + `${scan.tasks.length} tasks, ${elapsedMs.toFixed(1)} ms including file reads`,
-          );
-          new Notice(`Month Tasks：已在控制台打印 ${scan.tasks.length} 条任务`);
-        } catch (error) {
-          console.error('Month Tasks failed to scan the vault:', error);
-          new Notice('Month Tasks：扫描失败，请查看控制台');
-        }
-      },
-    });
   }
 
   /** Scans with a plugin-lifetime fallback cache for temporarily unreadable files. */

@@ -223,9 +223,8 @@ export class MonthTasksView extends ItemView {
       this.applyZoomStyles();
       zoomLabel.setText(`${this.zoomPercent}%`);
     });
-    zoomSlider.addEventListener('change', async () => {
-      this.plugin.settings.calendarZoomPercent = this.zoomPercent;
-      await this.plugin.saveSettings();
+    zoomSlider.addEventListener('change', () => {
+      void this.saveZoomPreference();
     });
 
     const upcomingDays = this.plugin.settings.upcomingDays;
@@ -272,10 +271,8 @@ export class MonthTasksView extends ItemView {
     });
     markerCheckbox.checked = this.plugin.settings.showTaskMarkers;
     markerToggle.createSpan({ text: '任务标记' });
-    markerCheckbox.addEventListener('change', async () => {
-      this.plugin.settings.showTaskMarkers = markerCheckbox.checked;
-      await this.plugin.saveSettings();
-      this.plugin.refreshCalendarAppearance();
+    markerCheckbox.addEventListener('change', () => {
+      void this.saveMarkerVisibility(markerCheckbox.checked);
     });
 
     const layout = this.contentEl.createDiv({
@@ -405,6 +402,29 @@ export class MonthTasksView extends ItemView {
     this.renderCalendar();
   }
 
+  /** Persists the top-bar zoom after the user finishes moving the slider. */
+  private async saveZoomPreference(): Promise<void> {
+    this.plugin.settings.calendarZoomPercent = this.zoomPercent;
+    await this.plugin.saveSettings();
+  }
+
+  /** Persists marker visibility and repaints already-open calendar content. */
+  private async saveMarkerVisibility(visible: boolean): Promise<void> {
+    this.plugin.settings.showTaskMarkers = visible;
+    await this.plugin.saveSettings();
+    this.plugin.refreshCalendarAppearance();
+  }
+
+  /** Runs the asynchronous completion write outside the DOM event callback. */
+  private async togglePendingTask(task: Task, checkbox: HTMLInputElement): Promise<void> {
+    checkbox.disabled = true;
+    const updated = await this.toggleTaskCompletion(task, checkbox.checked);
+    if (!updated) {
+      checkbox.checked = task.done;
+      checkbox.disabled = false;
+    }
+  }
+
   /** Draws grouped undated tasks without introducing a second action path. */
   private renderPendingPanel(
     layout: HTMLElement,
@@ -454,13 +474,8 @@ export class MonthTasksView extends ItemView {
             'aria-label': `标记完成：${task.title}`,
           },
         });
-        checkbox.addEventListener('change', async () => {
-          checkbox.disabled = true;
-          const updated = await this.toggleTaskCompletion(task, checkbox.checked);
-          if (!updated) {
-            checkbox.checked = task.done;
-            checkbox.disabled = false;
-          }
+        checkbox.addEventListener('change', () => {
+          void this.togglePendingTask(task, checkbox);
         });
 
         const taskButton = row.createEl('button', {

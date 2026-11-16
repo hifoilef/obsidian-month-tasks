@@ -129,5 +129,4 @@ npm run build
 ```
 
 将 `deploy.config.example.json` 复制为已被 Git 忽略的 `deploy.config.json`，填写测试库的
-`vaultPath`，然后运行 `npm run deploy`。命令面板中的「Month Tasks: 打印解析结果」可将
-扫描结果输出到开发者控制台。
+`vaultPath`，然后运行 `npm run deploy`。

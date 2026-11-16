@@ -24,17 +24,8 @@ export class DayTasksModal extends Modal {
         attr: { type: 'checkbox', 'aria-label': `切换 ${task.title} 的完成状态` },
       });
       checkbox.checked = task.done;
-      checkbox.addEventListener('change', async () => {
-        checkbox.disabled = true;
-        const updated = await this.toggleTask(task, checkbox.checked);
-        if (updated) {
-          task.done = checkbox.checked;
-          button.classList.toggle('mt-task-done', task.done);
-          checkbox.disabled = false;
-        } else {
-          checkbox.checked = task.done;
-          checkbox.disabled = false;
-        }
+      checkbox.addEventListener('change', () => {
+        void this.handleToggle(task, checkbox, button);
       });
       const button = row.createEl('button', {
         cls: `mt-modal-task${task.done ? ' mt-task-done' : ''}`,
@@ -49,5 +40,21 @@ export class DayTasksModal extends Modal {
 
   override onClose(): void {
     this.contentEl.empty();
+  }
+
+  private async handleToggle(
+    task: Task,
+    checkbox: HTMLInputElement,
+    button: HTMLButtonElement,
+  ): Promise<void> {
+    checkbox.disabled = true;
+    const updated = await this.toggleTask(task, checkbox.checked);
+    if (updated) {
+      task.done = checkbox.checked;
+      button.classList.toggle('mt-task-done', task.done);
+    } else {
+      checkbox.checked = task.done;
+    }
+    checkbox.disabled = false;
   }
 }

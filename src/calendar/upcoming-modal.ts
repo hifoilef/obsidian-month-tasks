@@ -42,18 +42,8 @@ export class UpcomingTasksModal extends Modal {
         attr: { type: 'checkbox', 'aria-label': `标记完成：${item.task.title}` },
       });
       checkbox.checked = item.task.done;
-      checkbox.addEventListener('change', async () => {
-        checkbox.disabled = true;
-        const updated = await this.toggleTask(item.task, checkbox.checked);
-        if (updated) {
-          item.task.done = checkbox.checked;
-          row.classList.toggle('mt-task-done', item.task.done);
-          row.classList.toggle('is-overdue', item.overdue && !item.task.done);
-          checkbox.disabled = false;
-        } else {
-          checkbox.checked = item.task.done;
-          checkbox.disabled = false;
-        }
+      checkbox.addEventListener('change', () => {
+        void this.handleToggle(item, checkbox, row);
       });
 
       const button = row.createEl('button', { cls: 'mt-upcoming-task' });
@@ -76,5 +66,22 @@ export class UpcomingTasksModal extends Modal {
   override onClose(): void {
     this.modalEl.removeClass('mt-upcoming-modal');
     this.contentEl.empty();
+  }
+
+  private async handleToggle(
+    item: UpcomingTask,
+    checkbox: HTMLInputElement,
+    row: HTMLElement,
+  ): Promise<void> {
+    checkbox.disabled = true;
+    const updated = await this.toggleTask(item.task, checkbox.checked);
+    if (updated) {
+      item.task.done = checkbox.checked;
+      row.classList.toggle('mt-task-done', item.task.done);
+      row.classList.toggle('is-overdue', item.overdue && !item.task.done);
+    } else {
+      checkbox.checked = item.task.done;
+    }
+    checkbox.disabled = false;
   }
 }

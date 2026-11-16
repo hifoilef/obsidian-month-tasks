@@ -1,8 +1,8 @@
 {
   "id": "month-tasks",
   "name": "Month Tasks",
-  "version": "0.1.3",
-  "minAppVersion": "1.7.2",
+  "version": "0.1.4",
+  "minAppVersion": "1.13.0",
   "description": "A monthly calendar for your Markdown checkbox tasks, with multi-day bars, custom colors, a pending-tasks panel and quick task creation. No Kanban required.",
   "author": "Nifern",
   "isDesktopOnly": true
