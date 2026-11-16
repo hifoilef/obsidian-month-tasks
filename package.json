@@ -1,6 +1,6 @@
 {
   "name": "month-tasks",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Calendar-oriented task parsing for Obsidian.",
   "main": "main.js",
   "type": "module",
