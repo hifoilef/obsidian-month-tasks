@@ -30,12 +30,11 @@ export class MonthTasksSettingTab extends PluginSettingTab {
   }
 
   override getSettingDefinitions(): SettingDefinitionItem<MonthTasksSettingKey>[] {
-    const defaultNoteDescription = document.createDocumentFragment();
+    const defaultNoteDescription = createEl('template').content;
     defaultNoteDescription.append(
       '新建任务默认写入的普通 Markdown 笔记，必须位于扫描文件夹范围内。',
     );
-    const defaultNoteWarning = document.createElement('div');
-    defaultNoteWarning.classList.add('mt-setting-warning');
+    const defaultNoteWarning = createEl('div', { cls: 'mt-setting-warning' });
     defaultNoteDescription.append(defaultNoteWarning);
 
     return [
